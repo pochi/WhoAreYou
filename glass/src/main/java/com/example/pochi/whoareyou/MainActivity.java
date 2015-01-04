@@ -131,8 +131,13 @@ public class MainActivity extends Activity {
             // TODO: Show the thumbnail to the user while the full picture is being
             // processed.
         }
-        mView = buildResultView();
+        displayResult();
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void displayResult() {
+        startActivity(new Intent(this, DisplayResultActivity.class));
+        finish();
     }
 
     private void processPictureWhenReady(final String picturePath) {
