@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import com.google.android.glass.content.Intents;
 import java.io.File;
 import android.os.FileObserver;
+import com.google.android.glass.app.Card;
 
 /**
  * An {@link Activity} showing a tuggable "Hello World!" card.
@@ -82,6 +83,7 @@ public class MainActivity extends Activity {
                 // Plays disallowed sound to indicate that TAP actions are not supported.
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, TAKE_PICTURE_REQUEST);
+                openOptionsMenu();
             }
         });
 
@@ -105,9 +107,17 @@ public class MainActivity extends Activity {
      * Builds a Glass styled "Hello World!" view using the {@link CardBuilder} class.
      */
     private View buildView() {
+        CardBuilder card = new CardBuilder(this, CardBuilder.Layout.COLUMNS);
+        card.setFootnote(R.string.author);
+        card.setText(R.string.who_are_you);
+        card.addImage(R.drawable.logo);
+        return card.getView();
+    }
+
+    private View buildResultView() {
         CardBuilder card = new CardBuilder(this, CardBuilder.Layout.TEXT);
 
-        card.setText(R.string.who_are_you);
+        card.setText(R.string.match_result);
         return card.getView();
     }
 
@@ -121,7 +131,7 @@ public class MainActivity extends Activity {
             // TODO: Show the thumbnail to the user while the full picture is being
             // processed.
         }
-
+        mView = buildResultView();
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -130,6 +140,7 @@ public class MainActivity extends Activity {
 
         if (pictureFile.exists()) {
             // The picture is ready; process it.
+            mView = buildResultView();
         } else {
             // The file does not exist yet. Before starting the file observer, you
             // can update your UI to let the user know that the application is
