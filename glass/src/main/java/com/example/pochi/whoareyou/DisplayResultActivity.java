@@ -13,8 +13,11 @@ import com.google.android.glass.content.Intents;
 import com.google.android.glass.widget.CardBuilder;
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
+import android.util.Log;
 
 import java.io.File;
+
+import javax.xml.transform.Result;
 
 /**
  * Created by pochi on 2015/01/05.
@@ -38,6 +41,10 @@ public class DisplayResultActivity extends Activity {
         super.onCreate(bundle);
 
         mView = buildView();
+
+        ResultsActivity resultsActivity = (ResultsActivity) getIntent().getSerializableExtra("model");
+        Log.i("---", "-------------------");
+        Log.i("person", String.valueOf(resultsActivity.getPerson()));
 
         mCardScroller = new CardScrollView(this);
         mCardScroller.setAdapter(new CardScrollAdapter() {
@@ -68,7 +75,6 @@ public class DisplayResultActivity extends Activity {
         mCardScroller.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
             }
         });
 
