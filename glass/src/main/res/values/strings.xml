@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">WhoAreYou</string>
-    <string name="title_activity_main">Hello World Immersion</string>
+    <string name="title_activity_main">Who are you?</string>
     <string name="hello_world">Hello world!</string>
+    <string name="who_are_you">Tap to capture</string>
 
 </resources>
