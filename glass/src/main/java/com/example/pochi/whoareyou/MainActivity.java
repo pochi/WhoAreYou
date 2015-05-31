@@ -9,16 +9,35 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import com.google.android.glass.content.Intents;
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import android.os.FileObserver;
 import com.google.android.glass.app.Card;
+
+import org.apache.http.HttpHost;
+import org.apache.http.HttpRequest;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpParams;
+import org.apache.http.protocol.HttpContext;
+
 
 /**
  * An {@link Activity} showing a tuggable "Hello World!" card.
@@ -144,6 +163,11 @@ public class MainActivity extends Activity {
 
         if (pictureFile.exists()) {
             // The picture is ready; process it.
+            Log.i("Prepared picture", picturePath);
+            Uri.Builder builder = new Uri.Builder();
+            FindPicture task = new FindPicture(this, picturePath);
+            task.execute(builder);
+
         } else {
             // The file does not exist yet. Before starting the file observer, you
             // can update your UI to let the user know that the application is

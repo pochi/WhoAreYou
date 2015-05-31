@@ -23,4 +23,7 @@
         <activity android:name=".DisplayResultActivity" />
     </application>
 
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
 </manifest>
