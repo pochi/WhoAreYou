@@ -1,6 +1,7 @@
 package com.example.pochi.whoareyou;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -27,16 +28,19 @@ public class GetPicture extends AsyncTask<Void, Void, Void> {
     private List<ResultCard> resultCardList;
     private List<BitmapDrawable> bitmapDrawableList;
     private Activity parentActivity;
+    private Dialog dialog;
 
     public GetPicture(Card view, ResultCard card) {
         this.currentCard = view;
         this.resultCard = card;
     }
 
-    public GetPicture(Activity parentActivity, List<ResultCard> resultCardList) {
+    public GetPicture(Activity parentActivity, List<ResultCard> resultCardList, Dialog dialog) {
         this.resultCardList = resultCardList;
         this.parentActivity = parentActivity;
+        this.dialog = dialog;
     }
+
 
     @Override
     protected Void doInBackground(Void... params) {
@@ -62,6 +66,12 @@ public class GetPicture extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void result) {
         Log.i("hoge", "add images");
+
+        for(int i=0; i < resultCardList.size(); i++) {
+            Log.i("url", resultCardList.get(i).getImageUrl());
+        }
+
+        dialog.dismiss();
         CardScrollView resultScrollView = new CardScrollView(this.parentActivity);
         ResultListCardAdapter cardScroller = new ResultListCardAdapter(this.parentActivity, resultCardList);
         resultScrollView.setAdapter(cardScroller);

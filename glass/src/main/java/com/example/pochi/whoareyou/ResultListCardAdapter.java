@@ -33,7 +33,7 @@ public class ResultListCardAdapter extends CardScrollAdapter {
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return mViews.get(i);
     }
 
     @Override

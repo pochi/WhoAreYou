@@ -49,7 +49,7 @@ public class ResultCard {
     }
 
     public Card.ImageLayout getImgLayout() {
-        return Card.ImageLayout.LEFT;
+        return Card.ImageLayout.FULL;
     }
 
     public void setImgLayout(Card.ImageLayout imgLayout) {

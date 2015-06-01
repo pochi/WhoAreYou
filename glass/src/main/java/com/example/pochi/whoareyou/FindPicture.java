@@ -1,6 +1,7 @@
 package com.example.pochi.whoareyou;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -42,10 +43,12 @@ public class FindPicture extends AsyncTask<Void, Void, Void> {
     private Activity parentActivity;
     private String picturePath;
     private JSONArray jsonResult;
+    private Dialog dialog;
 
-    public FindPicture(Activity activity, String picturePath) {
+    public FindPicture(Activity activity, String picturePath, Dialog dialog) {
         this.parentActivity = activity;
         this.picturePath = picturePath;
+        this.dialog = dialog;
     }
 
     @Override
@@ -106,7 +109,7 @@ public class FindPicture extends AsyncTask<Void, Void, Void> {
         try {
             Log.i("OnPostExecute", "test");
             for (int i = 0; i < this.jsonResult.length(); i++) {
-                JSONObject object = this.jsonResult.getJSONObject(0);
+                JSONObject object = this.jsonResult.getJSONObject(i);
                 Log.i(Integer.toString(i), object.getString("url"));
                 views.add(new ResultCard(object.getString("image"), object.getString("url")));
             }
@@ -120,7 +123,7 @@ public class FindPicture extends AsyncTask<Void, Void, Void> {
         resultScrollView.activate();
         this.parentActivity.setContentView(resultScrollView);
 
-        GetPicture task = new GetPicture(this.parentActivity, views);
+        GetPicture task = new GetPicture(this.parentActivity, views, dialog);
         task.execute();
     }
 }

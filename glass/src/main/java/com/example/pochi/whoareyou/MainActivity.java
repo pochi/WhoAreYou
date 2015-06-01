@@ -6,6 +6,8 @@ import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -149,7 +151,11 @@ public class MainActivity extends Activity {
             String thumbnailPath = data.getStringExtra(Intents.EXTRA_THUMBNAIL_FILE_PATH);
             String picturePath = data.getStringExtra(Intents.EXTRA_PICTURE_FILE_PATH);
 
-            processPictureWhenReady(picturePath);
+            ProgressDialog dialog = new ProgressDialog(this);
+            dialog.setMessage("Now searching...");
+            dialog.show();
+
+            processPictureWhenReady(picturePath, dialog);
             // TODO: Show the thumbnail to the user while the full picture is being
             // processed.
         }
@@ -162,13 +168,12 @@ public class MainActivity extends Activity {
         finish();
     }
 
-    private void processPictureWhenReady(final String picturePath) {
+    private void processPictureWhenReady(final String picturePath, final Dialog dialog) {
         final File pictureFile = new File(picturePath);
-
         if (pictureFile.exists()) {
             // The picture is ready; process it.
             Log.i("Prepared picture", picturePath);
-            FindPicture task = new FindPicture(this, picturePath);
+            FindPicture task = new FindPicture(this, picturePath, dialog);
             task.execute();
         } else {
             // The file does not exist yet. Before starting the file observer, you
@@ -199,7 +204,7 @@ public class MainActivity extends Activity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    processPictureWhenReady(picturePath);
+                                    processPictureWhenReady(picturePath, dialog);
                                 }
                             });
                         }
