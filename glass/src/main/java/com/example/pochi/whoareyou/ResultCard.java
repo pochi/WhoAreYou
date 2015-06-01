@@ -1,0 +1,51 @@
+package com.example.pochi.whoareyou;
+
+import com.google.android.glass.app.Card;
+
+/**
+ * Created by pochi on 2015/06/01.
+ */
+public class ResultCard {
+    private String imageUrl;
+    private String text;
+    private String footerText;
+    private Card.ImageLayout imgLayout;
+    private int[] images;
+
+    public ResultCard(String imageUrl, String contents) {
+        this.imageUrl = imageUrl;
+        this.text = contents;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getFooterText() {
+        return footerText;
+    }
+
+    public void setFooterText(String footerText) {
+        this.footerText = footerText;
+    }
+
+    public Card.ImageLayout getImgLayout() {
+        return imgLayout;
+    }
+
+    public void setImgLayout(Card.ImageLayout imgLayout) {
+        this.imgLayout = imgLayout;
+    }
+
+    public int[] getImages() {
+        return images;
+    }
+
+    public void setImages(int[] images) {
+        this.images = images;
+    }
+}

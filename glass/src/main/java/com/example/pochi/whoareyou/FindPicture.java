@@ -101,14 +101,14 @@ public class FindPicture extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void result) {
-        List<View> views = new ArrayList<View>();
+        List<ResultCard> views = new ArrayList<ResultCard>();
 
         try {
             Log.i("OnPostExecute", "test");
             for (int i = 0; i < this.jsonResult.length(); i++) {
                 JSONObject object = this.jsonResult.getJSONObject(0);
                 Log.i(Integer.toString(i), object.getString("url"));
-                views.add(buildView(object.getString("url")));
+                views.add(new ResultCard(object.getString("image"), object.getString("url")));
             }
         } catch(Exception ex) {
             ex.printStackTrace();

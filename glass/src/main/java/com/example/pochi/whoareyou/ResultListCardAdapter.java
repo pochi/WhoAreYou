@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.google.android.glass.app.Card;
 import com.google.android.glass.widget.CardScrollAdapter;
 import com.google.android.glass.widget.CardScrollView;
 
@@ -17,9 +18,9 @@ import javax.xml.transform.Result;
  */
 public class ResultListCardAdapter extends CardScrollAdapter {
 
-    private List<View> mViews;
+    private List<ResultCard> mViews;
     private Context context;
-    public ResultListCardAdapter(Context context, List<View> views) {
+    public ResultListCardAdapter(Context context, List<ResultCard> views) {
         this.mViews = views;
         this.context = context;
     }
@@ -37,12 +38,28 @@ public class ResultListCardAdapter extends CardScrollAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        return mViews.get(i);
+        ResultCard resultCard = mViews.get(i);
+        Card card = new Card(this.context);
+        // Card text
+        if (resultCard.getText() != null)
+            card.setText(resultCard.getText());
+
+        // Card footer note
+        if (resultCard.getFooterText() != null)
+            card.setFootnote(resultCard.getFooterText());
+
+        // Set image layout
+        if (resultCard.getImgLayout() != null)
+            card.setImageLayout(resultCard.getImgLayout());
+
+        // loop and set card images
+        //for(int img : resultCard.getImages()){
+        //    card.addImage(img);
+        //}
+
+        return card.getView();
     }
 
-    public View getView(int i) {
-        return mViews.get(i);
-    }
 
     @Override
     public int getPosition(Object o) {
