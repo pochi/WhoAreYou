@@ -52,11 +52,11 @@ public class ResultListCardAdapter extends CardScrollAdapter {
         if (resultCard.getImgLayout() != null)
             card.setImageLayout(resultCard.getImgLayout());
 
+        card.addImage(resultCard.getImage());
         // loop and set card images
         //for(int img : resultCard.getImages()){
         //    card.addImage(img);
         //}
-
         return card.getView();
     }
 

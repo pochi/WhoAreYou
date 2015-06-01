@@ -1,5 +1,7 @@
 package com.example.pochi.whoareyou;
 
+import android.graphics.drawable.BitmapDrawable;
+
 import com.google.android.glass.app.Card;
 
 /**
@@ -11,10 +13,23 @@ public class ResultCard {
     private String footerText;
     private Card.ImageLayout imgLayout;
     private int[] images;
+    private BitmapDrawable image;
 
     public ResultCard(String imageUrl, String contents) {
         this.imageUrl = imageUrl;
         this.text = contents;
+    }
+
+    public void setImage(BitmapDrawable bitmap) {
+        this.image = bitmap;
+    }
+
+    public BitmapDrawable getImage() {
+        return this.image;
+    }
+
+    public String getImageUrl() {
+        return this.imageUrl;
     }
 
     public String getText() {
@@ -34,7 +49,7 @@ public class ResultCard {
     }
 
     public Card.ImageLayout getImgLayout() {
-        return imgLayout;
+        return Card.ImageLayout.LEFT;
     }
 
     public void setImgLayout(Card.ImageLayout imgLayout) {

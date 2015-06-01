@@ -119,5 +119,8 @@ public class FindPicture extends AsyncTask<Void, Void, Void> {
         resultScrollView.setAdapter(cardScroller);
         resultScrollView.activate();
         this.parentActivity.setContentView(resultScrollView);
+
+        GetPicture task = new GetPicture(this.parentActivity, views);
+        task.execute();
     }
 }
