@@ -135,6 +135,12 @@ public class MainActivity extends Activity {
         return card.getView();
     }
 
+    private View buildView(String text) {
+        CardBuilder card = new CardBuilder(this, CardBuilder.Layout.MENU);
+        card.setText(text);
+        return card.getView();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         resultsActivity = new ResultsActivity();
@@ -147,8 +153,6 @@ public class MainActivity extends Activity {
             // TODO: Show the thumbnail to the user while the full picture is being
             // processed.
         }
-        displayResult();
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void displayResult() {
@@ -164,10 +168,8 @@ public class MainActivity extends Activity {
         if (pictureFile.exists()) {
             // The picture is ready; process it.
             Log.i("Prepared picture", picturePath);
-            Uri.Builder builder = new Uri.Builder();
             FindPicture task = new FindPicture(this, picturePath);
-            task.execute(builder);
-
+            task.execute();
         } else {
             // The file does not exist yet. Before starting the file observer, you
             // can update your UI to let the user know that the application is
